@@ -47,7 +47,7 @@
 ;; USE-PACKAGE
 (unless (package-installed-p 'use-package)
   (package-install 'use-package))
-
+(require 'use-package)
 
 ;; THEMES
 (use-package spacemacs-theme
