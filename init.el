@@ -21,17 +21,9 @@
 (setq auto-save-list-file-name nil)
 
 
-;; нумирация строк
-(require 'linum)
-(line-number-mode      t) ;; показать номер строки в mode-line
-(global-linum-mode     t) ;; показывать номера строк во всех буферах
-(column-number-mode    t) ;; показать номер столбца в mode-line
-(setq linum-format " %d") ;; задаем формат нумерации строк
 
-
-(require 'ido)
-(ido-mode t)
-
+(setq custom-file (expand-file-name "custom.el" user-emacs-directory))
+(load custom-file)
 
 
 ;; НАСТРОЙКИ ПЛАГИНОВ
@@ -39,7 +31,6 @@
 (add-to-list 'package-archives
              '("melpa" . "https://melpa.org/packages/"))
 (package-initialize)
-
 (when (not package-archive-contents)
   (package-refresh-contents))
 
@@ -49,11 +40,26 @@
   (package-install 'use-package))
 (require 'use-package)
 
-;; THEMES
-(use-package spacemacs-theme
-  :ensure t
+
+
+;; НАСТРОЙКА ВСТРОЕННЫХ ПЛАГИНОВ
+(use-package linum
   :config
-  (load-theme 'spacemacs-dark t))
+  (line-number-mode      t) ;; показать номер строки в mode-line
+  (global-linum-mode     t) ;; показывать номера строк во всех буферах
+  (column-number-mode    t) ;; показать номер столбца в mode-line
+  (setq linum-format " %d"));; задаем формат нумерации строк
+
+
+(use-package ido
+  :config
+  (ido-mode t))
+
+
+;; THEMES
+(unless (package-installed-p 'spacemacs-theme)
+  (package-install 'spacemacs-theme))
+(load-theme 'spacemacs-dark t)
 
 
 ;; Evil
