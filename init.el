@@ -118,3 +118,5 @@
   :config
   (setq projectile-project-search-path '("~/pproj/")))
 
+(use-package magit
+  :ensure t)
