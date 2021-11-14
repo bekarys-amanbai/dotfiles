@@ -1,17 +1,37 @@
-set rtp+=~/.vim/bundle/Vundle.vim
+set nocompatible              " be iMproved, required
+filetype off                  " required
+
+" Check to see if vundle is installed.  If not, install it.
+let vundle_already_installed=1
+let vundle_readme=expand('~/.vim/bundle/Vundle.vim/README.md')
+if !filereadable(vundle_readme)
+  echo "Installing Vundle.."
+  echo ""
+  silent !mkdir -p ~/.vim/bundle
+  silent !git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
+  let vundle_already_installed=0
+endif
+
+" set the runtime path to include Vundle and initialize
+set rtp+=~/.vim/bundle/Vundle.vim/
 call vundle#begin()
 
+" let Vundle manage Vundle, required
 Plugin 'VundleVim/Vundle.vim'
-
-Plugin 'tpope/vim-fugitive'
-Plugin 'git://git.wincent.com/command-t.git'
-Plugin 'rstacruz/sparkup', {'rtp': 'vim/'}
-
 Plugin 'flazz/vim-colorschemes'
-Plugin 'tpope/vim-surround'
+Plugin 'christoomey/vim-system-copy'
+call vundle#end()
 
-call vundle#end()            " required
+" If vundle wasn't installed, install it now that all the plugins are listed.
+if vundle_already_installed == 0
+  echo "Installing Bundles, please ignore key map error messages"
+  echo ""
+  :PluginInstall
+endif
+
 filetype plugin indent on    " required
+
+
 
 
 " Включение поддержки русского языка
@@ -46,10 +66,20 @@ set nu "Включаем нумерацию строк
 set mousehide "Спрятать курсор мыши когда набираем текст
 set mouse=a "Включить поддержку мыши
 set termencoding=utf-8 "Кодировка терминала
-set novisualbell "Не мигать 
-set t_vb= "Не пищать
-set backspace=indent,eol,start whichwrap+=<,>,[,] "Удобное поведение backspace
-set showtabline=1 "Вырубаем черточки на табах
+
+"set novisualbell "Не мигать 
+" Disable all blinking:
+":set guicursor+=a:blinkon0
+" Remove previous setting:
+":set guicursor-=a:blinkon0
+" Restore default setting:
+":set guicursor&
+
+set t_vb= "Не пищать! (Опции 'не портить текст', к сожалению, нету)
+" Удобное поведение backspace
+set backspace=indent,eol,start whichwrap+=<,>,[,]
+" Вырубаем черточки на табах
+set showtabline=1
 
 " Переносим на другую строчку, разрываем строки
 set wrap
@@ -58,7 +88,7 @@ set linebreak
 " Вырубаем .swp и ~ (резервные) файлы
 set nobackup
 set noswapfile
-set encoding=utf-8 "Кодировка файлов по умолчанию
+set encoding=utf-8 " Кодировка файлов по умолчанию
 set fileencodings=utf8,cp1251
 
 set clipboard=unnamed
@@ -68,6 +98,8 @@ set hidden
 nnoremap <C-N> :bnext<CR>
 nnoremap <C-P> :bprev<CR>
 
+" Выключаем звук в Vim
+set visualbell t_vb=
 
 " set guifont=Monaco:h18
 set guifont=Consolas:h12
