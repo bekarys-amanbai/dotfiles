@@ -87,7 +87,6 @@
   :init
   (setq evil-want-C-u-scroll t)
   :config
-  (evil-set-undo-system 'undo-tree)
   (evil-mode 1))
 
 ;; Elpy
